@@ -5,33 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Research & AI/ML Projects</title>
 
-  <!-- ===== STYLES ===== -->
   <style>
-    /* Global Reset & Styling */
+    /* Global reset & base styling */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
     html, body {
-      scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+      scroll-behavior: smooth;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0d1117; 
-      color: #c9d1d9;
-      position: relative;
       height: 100%;
-      overflow-x: hidden; /* Hide horizontal scroll if any */
+      overflow-x: hidden;
     }
 
-    /* Canvas (Particle Background) */
-    #batteryEffectCanvas {
+    /* The canvas behind everything */
+    #atomCanvas {
       position: fixed;
       top: 0;
       left: 0;
-      z-index: -1;  /* Place behind main content */
-      width: 100%;
-      height: 100%;
-      background: #0d1117; /* Match page background */
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      background: #0d1117; /* Matches page background */
     }
 
     /* Navigation Bar */
@@ -45,7 +41,7 @@
       align-items: center;
       justify-content: center;
       padding: 1em 0;
-      z-index: 999;
+      z-index: 999; /* Above the canvas */
     }
     nav ul {
       list-style-type: none;
@@ -59,7 +55,7 @@
       transition: color 0.2s ease-in-out;
     }
     nav a:hover {
-      color: #58a6ff; /* GitHub’s blue highlight color */
+      color: #58a6ff;
     }
 
     /* Hero Section */
@@ -70,6 +66,12 @@
       align-items: center;
       justify-content: center;
       text-align: center;
+      /* Semi‐transparent background so canvas behind is visible */
+      background: linear-gradient(
+        120deg,
+        rgba(13, 17, 23, 0.8),
+        rgba(22, 27, 34, 0.8)
+      );
       padding: 0 1em;
     }
     .hero h1 {
@@ -77,11 +79,15 @@
       margin-bottom: 0.5em;
       color: #58a6ff;
     }
-    .hero .typing {
+    .typing {
       font-size: 1.2rem;
-      color: #8b949e;
-      margin-top: 0.5em;
+      color: #9e8b96;
+      white-space: nowrap;
+      display: inline-block;
       min-height: 30px; /* Reserve space for typed text */
+    }
+    .typed-cursor {
+      display: inline-block;
     }
 
     /* Section Containers */
@@ -90,7 +96,7 @@
       padding: 6rem 2rem 4rem 2rem;
       max-width: 1000px;
       margin: 0 auto;
-      opacity: 0;              /* Start hidden for reveal effect */
+      opacity: 0;             /* Start hidden for reveal effect */
       transform: translateY(30px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
@@ -103,10 +109,6 @@
       margin-bottom: 1rem;
       border-bottom: 2px solid #c9d1d9;
       padding-bottom: 0.5rem;
-    }
-    .section p, .section li {
-      line-height: 1.6;
-      margin-bottom: 0.75rem;
     }
     .section ul {
       list-style-type: disc;
@@ -125,10 +127,10 @@
 </head>
 <body>
 
-  <!-- Canvas for the background effect -->
-  <canvas id="batteryEffectCanvas"></canvas>
+  <!-- Our new background canvas -->
+  <canvas id="atomCanvas"></canvas>
 
-  <!-- ===== NAVIGATION ===== -->
+  <!-- Navigation -->
   <nav>
     <ul>
       <li><a href="#home">Home</a></li>
@@ -139,18 +141,18 @@
     </ul>
   </nav>
 
-  <!-- ===== HERO / LANDING SECTION ===== -->
+  <!-- Hero Section -->
   <section class="hero" id="home">
-    <h1>Hi, I'm [Your Name]!</h1>
+    <h1>Hi, I'm Simran!</h1>
     <div class="typing"></div>
   </section>
 
-  <!-- ===== ABOUT SECTION ===== -->
+  <!-- About Me -->
   <section class="section" id="about-me">
     <h2>About Me</h2>
     <p>
-      I'm a research scientist passionate about battery technology and 
-      AI/ML innovations. I enjoy bridging the gap between cutting-edge 
+      I'm a research scientist passionate about battery technology and
+      AI/ML innovations. I enjoy bridging the gap between cutting-edge
       data science and real-world energy solutions.
     </p>
     <p>
@@ -162,88 +164,86 @@
       <li>Machine Learning Applications in Energy Systems</li>
     </ul>
     <p>
-      When I'm not in the lab, you can find me exploring new AI libraries, 
+      When I'm not in the lab, you can find me exploring new AI libraries,
       tinkering with robotics, or enjoying a nice hike outdoors.
     </p>
   </section>
 
-  <!-- ===== PROJECTS SECTION ===== -->
+  <!-- Projects -->
   <section class="section" id="projects">
     <h2>Projects</h2>
     <ul>
-      <li><strong>Battery Performance Prediction:</strong> AI models that forecast battery degradation and performance metrics.</li>
-      <li><strong>Material Discovery with ML:</strong> Using generative algorithms to identify new materials for sustainable energy storage.</li>
-      <li><strong>Data Pipelines for Research:</strong> Automated data cleaning, feature engineering, and experiment logging.</li>
+      <li><strong>Battery Performance Prediction:</strong> Building AI models
+        that forecast battery degradation and performance metrics.</li>
+      <li><strong>Material Discovery with ML:</strong> Using generative
+        algorithms to identify new materials for sustainable energy storage.</li>
+      <li><strong>Data Pipelines for Research:</strong> Automating
+        data cleaning, feature engineering, and experimental logging.</li>
     </ul>
     <p>
-      My GitHub page has repositories and notebooks demonstrating these projects and more. Feel free to explore or collaborate!
+      My GitHub page has various repositories and notebooks demonstrating
+      these projects and more. Check them out for inspiration or collaboration!
     </p>
   </section>
 
-  <!-- ===== COOL STUFF SECTION ===== -->
+  <!-- Cool Stuff -->
   <section class="section" id="cool-stuff">
     <h2>Cool Stuff</h2>
     <p>
       Beyond research, I'm always up to something interesting:
     </p>
     <ul>
-      <li><strong>3D Printing & DIY Projects:</strong> Creating custom parts or fun figurines.</li>
-      <li><strong>Photography:</strong> Capturing nature shots or macro photos of everyday objects.</li>
-      <li><strong>Hackathons & Robotics:</strong> Experimenting with Raspberry Pi, Arduino, and small-scale robotics challenges.</li>
+      <li><strong>3D Printing & DIY Projects:</strong> Creating and designing
+        custom parts or fun figurines.</li>
+      <li><strong>Photography:</strong> Capturing nature shots or macro
+        photos of everyday objects.</li>
+      <li><strong>Hackathons & Robotics:</strong> Experimenting with
+        Raspberry Pi, Arduino, and small-scale robotics challenges.</li>
     </ul>
   </section>
 
-  <!-- ===== CONTACT SECTION ===== -->
+  <!-- Contact -->
   <section class="section" id="contact">
     <h2>Contact</h2>
     <p>
-      Interested in collaborating or just want to chat about 
+      Interested in collaborating or just want to chat about
       batteries, AI, or other cool stuff?
     </p>
     <p>
-      Reach me at: 
-      <a href="mailto:yourname@example.com">yourname@example.com</a><br/>
-      or connect via 
-      <a href="https://www.linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>.
+      Reach me at:
+      <a href="mailto:simran.iiserk@gmail.com">simran.iiserk@gmail.com</a><br/>
+      or connect via
+      <a href="https://www.linkedin.com/in/simran-kumari-9895939a/" target="_blank">LinkedIn</a>.
     </p>
   </section>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 [Your Name]. Built with passion &amp; caffeine.</p>
+    <p>&copy; 2025 Simran Kumari. Built with passion &amp; caffeine.</p>
   </footer>
 
-  <!-- ===== SCRIPTS ===== -->
-
-  <!-- 1) Typed.js for the typing animation -->
+  <!-- Typed.js for the hero text animation -->
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-
-  <!-- 2) Custom JS for typed effect, reveal on scroll, and battery charges effect -->
   <script>
-    // =====================================
-    // TYPED.JS INIT
-    // =====================================
-    var typed = new Typed('.typing', {
+    // Initialize typed text in the hero
+    new Typed('.typing', {
       strings: [
         "I'm a battery researcher.",
-        "I use AI & ML in my projects.",
+        "I use AI and ML in my projects.",
         "I love energy solutions & tech.",
         "Welcome to my world!"
       ],
-      typeSpeed: 40,
-      backSpeed: 30,
+      typeSpeed: 60,
+      backSpeed: 40,
       backDelay: 2000,
       loop: true
     });
 
-    // =====================================
-    // REVEAL ON SCROLL
-    // =====================================
+    // Reveal on scroll
     const sections = document.querySelectorAll('.section');
     function revealOnScroll() {
       const windowHeight = window.innerHeight;
-      const revealPoint = 100; // threshold before bottom
-
+      const revealPoint = 100;
       sections.forEach((section) => {
         const sectionTop = section.getBoundingClientRect().top;
         if(sectionTop < windowHeight - revealPoint) {
@@ -253,33 +253,37 @@
     }
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
+  </script>
 
-    // =====================================
-    // BATTERY CHARGES EFFECT (Canvas)
-    // =====================================
-    const canvas = document.getElementById('batteryEffectCanvas');
+  <!-- Atom-like canvas animation script -->
+  <script>
+    // Reference our canvas
+    const canvas = document.getElementById('atomCanvas');
     const ctx = canvas.getContext('2d');
 
     let particlesArray = [];
-    let mouse = {
-      x: null,
-      y: null
-    };
+    let electronsArray = [];
+    let mouse = { x: null, y: null };
 
-    // Update mouse position
-    window.addEventListener('mousemove', function(e) {
+    // Update mouse coords
+    window.addEventListener('mousemove', (e) => {
       mouse.x = e.x;
       mouse.y = e.y;
     });
 
-    // Resize canvas to fit window
-    window.addEventListener('resize', function(){
+    // On click, add an electron orbiting the click position
+    window.addEventListener('click', (e) => {
+      electronsArray.push(new Electron(e.x, e.y, 50 + Math.random() * 30));
+    });
+
+    // Resize the canvas with the window
+    window.addEventListener('resize', () => {
       canvas.width = innerWidth;
       canvas.height = innerHeight;
       initParticles();
     });
 
-    // Particle constructor
+    // Particle constructor (background charges)
     class Particle {
       constructor(x, y, size, speedX, speedY) {
         this.x = x;
@@ -292,62 +296,88 @@
         this.x += this.speedX;
         this.y += this.speedY;
         // Bounce off edges
-        if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
       }
       draw() {
-        ctx.fillStyle = '#58a6ff'; // Blue-ish color for "charges"
+        ctx.fillStyle = '#ffffff'; // white for visibility
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
       }
     }
 
-    // Initialize particles
+    // Electron constructor (orbit around an origin)
+    class Electron {
+      constructor(ox, oy, radius) {
+        this.ox = ox;
+        this.oy = oy;
+        this.radius = radius;
+        this.angle = Math.random() * Math.PI * 2;
+        this.angleSpeed = 0.02 + Math.random() * 0.02;
+      }
+      update() {
+        this.angle += this.angleSpeed;
+      }
+      draw() {
+        const ex = this.ox + this.radius * Math.cos(this.angle);
+        const ey = this.oy + this.radius * Math.sin(this.angle);
+        ctx.fillStyle = '#ffd700'; // gold color
+        ctx.beginPath();
+        ctx.arc(ex, ey, 5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
     function initParticles() {
       particlesArray = [];
-      let numberOfParticles = 80; // Adjust for more or fewer
-      for(let i = 0; i < numberOfParticles; i++){
-        let x = Math.random() * canvas.width;
-        let y = Math.random() * canvas.height;
-        let size = Math.random() * 2 + 1; // random size 1 - 3
-        let speedX = (Math.random() * 1) - 0.5; // random -0.5 to 0.5
-        let speedY = (Math.random() * 1) - 0.5;
+      let numberOfParticles = 60; // Adjust as you like
+      for (let i = 0; i < numberOfParticles; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const size = Math.random() * 4 + 2; // bigger for easier visibility
+        const speedX = (Math.random() - 0.5) * 1;
+        const speedY = (Math.random() - 0.5) * 1;
         particlesArray.push(new Particle(x, y, size, speedX, speedY));
       }
     }
 
-    // Animate the canvas
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // Draw each particle
-      for(let i = 0; i < particlesArray.length; i++){
-        let p = particlesArray[i];
+
+      // Draw & update background particles
+      particlesArray.forEach((p) => {
         p.update();
         p.draw();
-        // Connect lines between particle and mouse if close enough
-        drawBatteryLine(p);
-      }
+        drawConnectionLine(p);
+      });
+
+      // Draw & update orbiting electrons
+      electronsArray.forEach((e) => {
+        e.update();
+        e.draw();
+      });
+
       requestAnimationFrame(animate);
     }
 
-    // Connect line from particle to mouse if they're close
-    function drawBatteryLine(p) {
-      let distX = p.x - mouse.x;
-      let distY = p.y - mouse.y;
-      let distance = Math.sqrt(distX*distX + distY*distY);
-      let maxDistance = 100; // Feel free to adjust
+    // If a particle is close to mouse, draw a line from it to the mouse
+    function drawConnectionLine(particle) {
+      const distX = particle.x - mouse.x;
+      const distY = particle.y - mouse.y;
+      const distance = Math.sqrt(distX * distX + distY * distY);
+      const maxDistance = 150;
       if (distance < maxDistance) {
-        ctx.strokeStyle = '#3fb950'; // A green line (battery color)
+        ctx.strokeStyle = '#b95b3f'; // green line
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
+        ctx.moveTo(particle.x, particle.y);
         ctx.lineTo(mouse.x, mouse.y);
         ctx.stroke();
       }
     }
 
-    // On load, set canvas size and start animation
+    // On page load, fit canvas & begin animation
     window.addEventListener('load', () => {
       canvas.width = innerWidth;
       canvas.height = innerHeight;
@@ -355,6 +385,5 @@
       animate();
     });
   </script>
-
 </body>
 </html>
