@@ -7,7 +7,7 @@
 
   <!-- ===== STYLES ===== -->
   <style>
-    /* Global Styling */
+    /* Global Reset & Styling */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -16,8 +16,22 @@
     html, body {
       scroll-behavior: smooth; /* Smooth scrolling for anchor links */
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0d1117;
-      color: #c9d1d9; /* Light text color */
+      background-color: #0d1117; 
+      color: #c9d1d9;
+      position: relative;
+      height: 100%;
+      overflow-x: hidden; /* Hide horizontal scroll if any */
+    }
+
+    /* Canvas (Particle Background) */
+    #batteryEffectCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;  /* Place behind main content */
+      width: 100%;
+      height: 100%;
+      background: #0d1117; /* Match page background */
     }
 
     /* Navigation Bar */
@@ -56,7 +70,6 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      background: linear-gradient(120deg, #0d1117, #161b22);
       padding: 0 1em;
     }
     .hero h1 {
@@ -74,7 +87,7 @@
     /* Section Containers */
     .section {
       min-height: 100vh;
-      padding: 6rem 2rem 4rem 2rem; 
+      padding: 6rem 2rem 4rem 2rem;
       max-width: 1000px;
       margin: 0 auto;
       opacity: 0;              /* Start hidden for reveal effect */
@@ -112,6 +125,9 @@
 </head>
 <body>
 
+  <!-- Canvas for the background effect -->
+  <canvas id="batteryEffectCanvas"></canvas>
+
   <!-- ===== NAVIGATION ===== -->
   <nav>
     <ul>
@@ -125,7 +141,7 @@
 
   <!-- ===== HERO / LANDING SECTION ===== -->
   <section class="hero" id="home">
-    <h1>Hi, I'm Simran!</h1>
+    <h1>Hi, I'm [Your Name]!</h1>
     <div class="typing"></div>
   </section>
 
@@ -155,16 +171,12 @@
   <section class="section" id="projects">
     <h2>Projects</h2>
     <ul>
-      <li><strong>Battery Performance Prediction:</strong> Building AI models 
-        that forecast battery degradation and performance metrics.</li>
-      <li><strong>Material Discovery with ML:</strong> Using generative 
-        algorithms to identify new materials for sustainable energy storage.</li>
-      <li><strong>Data Pipelines for Research:</strong> Automating 
-        data cleaning, feature engineering, and experimental logging.</li>
+      <li><strong>Battery Performance Prediction:</strong> AI models that forecast battery degradation and performance metrics.</li>
+      <li><strong>Material Discovery with ML:</strong> Using generative algorithms to identify new materials for sustainable energy storage.</li>
+      <li><strong>Data Pipelines for Research:</strong> Automated data cleaning, feature engineering, and experiment logging.</li>
     </ul>
     <p>
-      My GitHub page has various repositories and notebooks demonstrating 
-      these projects and more. Check them out for inspiration or collaboration!
+      My GitHub page has repositories and notebooks demonstrating these projects and more. Feel free to explore or collaborate!
     </p>
   </section>
 
@@ -175,12 +187,9 @@
       Beyond research, I'm always up to something interesting:
     </p>
     <ul>
-      <li><strong>3D Printing & DIY Projects:</strong> Creating and designing 
-        custom parts or fun figurines.</li>
-      <li><strong>Photography:</strong> Capturing nature shots or macro 
-        photos of everyday objects.</li>
-      <li><strong>Hackathons & Robotics:</strong> Experimenting with 
-        Raspberry Pi, Arduino, and small-scale robotics challenges.</li>
+      <li><strong>3D Printing & DIY Projects:</strong> Creating custom parts or fun figurines.</li>
+      <li><strong>Photography:</strong> Capturing nature shots or macro photos of everyday objects.</li>
+      <li><strong>Hackathons & Robotics:</strong> Experimenting with Raspberry Pi, Arduino, and small-scale robotics challenges.</li>
     </ul>
   </section>
 
@@ -201,7 +210,7 @@
 
   <!-- ===== FOOTER ===== -->
   <footer>
-    <p>&copy; 2025 Simran Kumari. Built with passion &amp; caffeine.</p>
+    <p>&copy; 2025 [Your Name]. Built with passion &amp; caffeine.</p>
   </footer>
 
   <!-- ===== SCRIPTS ===== -->
@@ -209,9 +218,11 @@
   <!-- 1) Typed.js for the typing animation -->
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
 
-  <!-- 2) Custom JS for typed effect, reveal on scroll, etc. -->
+  <!-- 2) Custom JS for typed effect, reveal on scroll, and battery charges effect -->
   <script>
-    // Initialize Typed.js in the hero section
+    // =====================================
+    // TYPED.JS INIT
+    // =====================================
     var typed = new Typed('.typing', {
       strings: [
         "I'm a battery researcher.",
@@ -225,9 +236,10 @@
       loop: true
     });
 
-    // Reveal Sections on Scroll
+    // =====================================
+    // REVEAL ON SCROLL
+    // =====================================
     const sections = document.querySelectorAll('.section');
-
     function revealOnScroll() {
       const windowHeight = window.innerHeight;
       const revealPoint = 100; // threshold before bottom
@@ -239,9 +251,110 @@
         }
       });
     }
-
     window.addEventListener('scroll', revealOnScroll);
-    window.addEventListener('load', revealOnScroll); // Trigger on first load as well
+    window.addEventListener('load', revealOnScroll);
+
+    // =====================================
+    // BATTERY CHARGES EFFECT (Canvas)
+    // =====================================
+    const canvas = document.getElementById('batteryEffectCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let particlesArray = [];
+    let mouse = {
+      x: null,
+      y: null
+    };
+
+    // Update mouse position
+    window.addEventListener('mousemove', function(e) {
+      mouse.x = e.x;
+      mouse.y = e.y;
+    });
+
+    // Resize canvas to fit window
+    window.addEventListener('resize', function(){
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+      initParticles();
+    });
+
+    // Particle constructor
+    class Particle {
+      constructor(x, y, size, speedX, speedY) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.speedX = speedX;
+        this.speedY = speedY;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        // Bounce off edges
+        if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+      draw() {
+        ctx.fillStyle = '#58a6ff'; // Blue-ish color for "charges"
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // Initialize particles
+    function initParticles() {
+      particlesArray = [];
+      let numberOfParticles = 80; // Adjust for more or fewer
+      for(let i = 0; i < numberOfParticles; i++){
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        let size = Math.random() * 2 + 1; // random size 1 - 3
+        let speedX = (Math.random() * 1) - 0.5; // random -0.5 to 0.5
+        let speedY = (Math.random() * 1) - 0.5;
+        particlesArray.push(new Particle(x, y, size, speedX, speedY));
+      }
+    }
+
+    // Animate the canvas
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Draw each particle
+      for(let i = 0; i < particlesArray.length; i++){
+        let p = particlesArray[i];
+        p.update();
+        p.draw();
+        // Connect lines between particle and mouse if close enough
+        drawBatteryLine(p);
+      }
+      requestAnimationFrame(animate);
+    }
+
+    // Connect line from particle to mouse if they're close
+    function drawBatteryLine(p) {
+      let distX = p.x - mouse.x;
+      let distY = p.y - mouse.y;
+      let distance = Math.sqrt(distX*distX + distY*distY);
+      let maxDistance = 100; // Feel free to adjust
+      if (distance < maxDistance) {
+        ctx.strokeStyle = '#3fb950'; // A green line (battery color)
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.stroke();
+      }
+    }
+
+    // On load, set canvas size and start animation
+    window.addEventListener('load', () => {
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+      initParticles();
+      animate();
+    });
   </script>
+
 </body>
 </html>
