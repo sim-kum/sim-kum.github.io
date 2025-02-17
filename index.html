@@ -3,168 +3,245 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Research and AI/ML Projects</title>
+  <title>My Research & AI/ML Projects</title>
+
+  <!-- ===== STYLES ===== -->
   <style>
-    /* Basic Page Styles */
-    body {
+    /* Global Styling */
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+    }
+    html, body {
+      scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0d1117;
+      color: #c9d1d9; /* Light text color */
     }
 
-    /* Header and Nav */
-    header {
-      background: #0d1117; /* Dark background */
-      color: #fff;
-      padding: 1em;
-      text-align: center;
-      position: sticky;
+    /* Navigation Bar */
+    nav {
+      position: fixed;
+      width: 100%;
       top: 0;
+      left: 0;
+      background: #161b22;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1em 0;
+      z-index: 999;
     }
     nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: inline-flex;
+      list-style-type: none;
+      display: flex;
       gap: 2rem;
     }
     nav a {
-      color: #fff;
       text-decoration: none;
-      font-weight: bold;
+      color: #c9d1d9;
+      font-weight: 600;
+      transition: color 0.2s ease-in-out;
     }
     nav a:hover {
-      text-decoration: underline;
+      color: #58a6ff; /* GitHub’s blue highlight color */
     }
 
-    /* Main Container */
-    main {
-      max-width: 800px;
-      margin: 2em auto;
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(120deg, #0d1117, #161b22);
       padding: 0 1em;
-      background: #fff;
-      border-radius: 5px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5em;
+      color: #58a6ff;
+    }
+    .hero .typing {
+      font-size: 1.2rem;
+      color: #8b949e;
+      margin-top: 0.5em;
+      min-height: 30px; /* Reserve space for typed text */
     }
 
-    section {
-      padding: 2em;
-      display: none; /* Hide sections by default */
+    /* Section Containers */
+    .section {
+      min-height: 100vh;
+      padding: 6rem 2rem 4rem 2rem; 
+      max-width: 1000px;
+      margin: 0 auto;
+      opacity: 0;              /* Start hidden for reveal effect */
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
-    section h2 {
-      margin-top: 0;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 0.5em;
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
-
-    /* Image in About Me */
-    #about-me img {
-      max-width: 250px;
-      border-radius: 50%;
-      display: block;
-      margin: 0 auto 1em auto;
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #c9d1d9;
+      padding-bottom: 0.5rem;
+    }
+    .section p, .section li {
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+    .section ul {
+      list-style-type: disc;
+      margin-left: 1.5rem;
+      margin-top: 1rem;
     }
 
     /* Footer */
     footer {
-      background: #0d1117;
-      color: #fff;
+      background: #161b22;
+      padding: 2rem;
       text-align: center;
-      padding: 1em 0;
-      margin-top: 2em;
+      color: #8b949e;
     }
   </style>
 </head>
-<body onload="showSection('about-me')">
+<body>
 
-  <!-- Header with Navigation -->
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#about-me" onclick="showSection('about-me')">About Me</a></li>
-        <li><a href="#projects" onclick="showSection('projects')">Projects</a></li>
-        <li><a href="#cool-stuff" onclick="showSection('cool-stuff')">Cool Stuff</a></li>
-        <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  <!-- ===== NAVIGATION ===== -->
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about-me">About Me</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#cool-stuff">Cool Stuff</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
-  <!-- Main Content Container -->
-  <main>
-    <!-- About Me Section -->
-    <section id="about-me">
-      <h2>About Me</h2>
-      <!-- Replace with your actual photo -->
-      <img src="https://via.placeholder.com/250" alt="My Photo" />
-      <p>
-        Hello! I'm [Your Name], a research scientist specializing in battery 
-        technology and AI/ML innovations. My passion lies in discovering 
-        cutting-edge solutions that bridge data science and real-world 
-        energy systems.
-      </p>
-    </section>
+  <!-- ===== HERO / LANDING SECTION ===== -->
+  <section class="hero" id="home">
+    <h1>Hi, I'm [Your Name]!</h1>
+    <div class="typing"></div>
+  </section>
 
-    <!-- Projects Section -->
-    <section id="projects">
-      <h2>Projects</h2>
-      <ul>
-        <li><strong>Battery Performance Prediction:</strong> AI-driven models 
-          that forecast lifespan, efficiency, and failure modes of next-gen batteries.</li>
-        <li><strong>Materials Discovery with ML:</strong> Using advanced 
-          machine-learning techniques to identify novel compounds for 
-          sustainable energy storage.</li>
-        <li><strong>Automated Research Pipelines:</strong> Scripts and tools 
-          that streamline data collection, preprocessing, and analysis 
-          for AI-based experiments.</li>
-      </ul>
-    </section>
+  <!-- ===== ABOUT SECTION ===== -->
+  <section class="section" id="about-me">
+    <h2>About Me</h2>
+    <p>
+      I'm a research scientist passionate about battery technology and 
+      AI/ML innovations. I enjoy bridging the gap between cutting-edge 
+      data science and real-world energy solutions.
+    </p>
+    <p>
+      My main areas of focus include:
+    </p>
+    <ul>
+      <li>Advanced Battery Material Discovery</li>
+      <li>Predictive Modeling for Battery Lifespan</li>
+      <li>Machine Learning Applications in Energy Systems</li>
+    </ul>
+    <p>
+      When I'm not in the lab, you can find me exploring new AI libraries, 
+      tinkering with robotics, or enjoying a nice hike outdoors.
+    </p>
+  </section>
 
-    <!-- Cool Stuff Section -->
-    <section id="cool-stuff">
-      <h2>Cool Stuff</h2>
-      <p>
-        Outside of research, I love:
-      </p>
-      <ul>
-        <li><strong>3D Printing:</strong> Designing fun, functional parts 
-          and exploring new materials.</li>
-        <li><strong>Nature Photography:</strong> Capturing scenic views 
-          during hikes and outdoor adventures.</li>
-        <li><strong>Robotics Projects:</strong> Experimenting with 
-          hobbyist robots and AI integrations at home.</li>
-      </ul>
-    </section>
+  <!-- ===== PROJECTS SECTION ===== -->
+  <section class="section" id="projects">
+    <h2>Projects</h2>
+    <ul>
+      <li><strong>Battery Performance Prediction:</strong> Building AI models 
+        that forecast battery degradation and performance metrics.</li>
+      <li><strong>Material Discovery with ML:</strong> Using generative 
+        algorithms to identify new materials for sustainable energy storage.</li>
+      <li><strong>Data Pipelines for Research:</strong> Automating 
+        data cleaning, feature engineering, and experimental logging.</li>
+    </ul>
+    <p>
+      My GitHub page has various repositories and notebooks demonstrating 
+      these projects and more. Check them out for inspiration or collaboration!
+    </p>
+  </section>
 
-    <!-- Contact Section -->
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>
-        Let’s talk about collaborating or just chat about cool tech!<br />
-        Email me at <a href="mailto:yourname@example.com">yourname@example.com</a><br />
-        or connect with me on 
-        <a href="https://www.linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>.
-      </p>
-      <!-- If you have a backend or third-party form service, you can embed a form here. -->
-    </section>
-  </main>
+  <!-- ===== COOL STUFF SECTION ===== -->
+  <section class="section" id="cool-stuff">
+    <h2>Cool Stuff</h2>
+    <p>
+      Beyond research, I'm always up to something interesting:
+    </p>
+    <ul>
+      <li><strong>3D Printing & DIY Projects:</strong> Creating and designing 
+        custom parts or fun figurines.</li>
+      <li><strong>Photography:</strong> Capturing nature shots or macro 
+        photos of everyday objects.</li>
+      <li><strong>Hackathons & Robotics:</strong> Experimenting with 
+        Raspberry Pi, Arduino, and small-scale robotics challenges.</li>
+    </ul>
+  </section>
 
-  <!-- Footer -->
+  <!-- ===== CONTACT SECTION ===== -->
+  <section class="section" id="contact">
+    <h2>Contact</h2>
+    <p>
+      Interested in collaborating or just want to chat about 
+      batteries, AI, or other cool stuff?
+    </p>
+    <p>
+      Reach me at: 
+      <a href="mailto:yourname@example.com">yourname@example.com</a><br/>
+      or connect via 
+      <a href="https://www.linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>.
+    </p>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
   <footer>
-    <p>&copy; 2025 Your Name</p>
+    <p>&copy; 2025 [Your Name]. Built with passion &amp; caffeine.</p>
   </footer>
 
-  <!-- Simple JavaScript to toggle sections -->
-  <script>
-    function showSection(sectionId) {
-      // Hide all sections
-      const sections = document.querySelectorAll('section');
-      sections.forEach(section => {
-        section.style.display = 'none';
-      });
+  <!-- ===== SCRIPTS ===== -->
 
-      // Show the targeted section
-      document.getElementById(sectionId).style.display = 'block';
+  <!-- 1) Typed.js for the typing animation -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+
+  <!-- 2) Custom JS for typed effect, reveal on scroll, etc. -->
+  <script>
+    // Initialize Typed.js in the hero section
+    var typed = new Typed('.typing', {
+      strings: [
+        "I'm a battery researcher.",
+        "I use AI & ML in my projects.",
+        "I love energy solutions & tech.",
+        "Welcome to my world!"
+      ],
+      typeSpeed: 40,
+      backSpeed: 30,
+      backDelay: 2000,
+      loop: true
+    });
+
+    // Reveal Sections on Scroll
+    const sections = document.querySelectorAll('.section');
+
+    function revealOnScroll() {
+      const windowHeight = window.innerHeight;
+      const revealPoint = 100; // threshold before bottom
+
+      sections.forEach((section) => {
+        const sectionTop = section.getBoundingClientRect().top;
+        if(sectionTop < windowHeight - revealPoint) {
+          section.classList.add('visible');
+        }
+      });
     }
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll); // Trigger on first load as well
   </script>
 </body>
 </html>
