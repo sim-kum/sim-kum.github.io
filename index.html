@@ -4,49 +4,68 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Research and AI/ML Projects</title>
-  <!-- Basic styling can be placed here or in a separate CSS file -->
   <style>
+    /* Basic Page Styles */
     body {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      line-height: 1.6;
+      background-color: #f4f4f4;
     }
+
+    /* Header and Nav */
     header {
       background: #0d1117; /* Dark background */
       color: #fff;
       padding: 1em;
+      text-align: center;
+      position: sticky;
+      top: 0;
     }
     nav ul {
-      list-style-type: none;
-      display: flex;
-      gap: 1rem;
-      padding: 0;
+      list-style: none;
       margin: 0;
+      padding: 0;
+      display: inline-flex;
+      gap: 2rem;
     }
-    nav ul li {
-      display: inline;
-    }
-    nav ul li a {
+    nav a {
       color: #fff;
       text-decoration: none;
       font-weight: bold;
     }
-    nav ul li a:hover {
+    nav a:hover {
       text-decoration: underline;
     }
+
+    /* Main Container */
     main {
       max-width: 800px;
       margin: 2em auto;
       padding: 0 1em;
+      background: #fff;
+      border-radius: 5px;
     }
+
     section {
-      margin-bottom: 2em;
+      padding: 2em;
+      display: none; /* Hide sections by default */
     }
     section h2 {
+      margin-top: 0;
       border-bottom: 2px solid #ccc;
       padding-bottom: 0.5em;
     }
+
+    /* Image in About Me */
+    #about-me img {
+      max-width: 250px;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 1em auto;
+    }
+
+    /* Footer */
     footer {
       background: #0d1117;
       color: #fff;
@@ -56,30 +75,32 @@
     }
   </style>
 </head>
-<body>
+<body onload="showSection('about-me')">
 
-  <!-- Header and Navigation -->
+  <!-- Header with Navigation -->
   <header>
     <nav>
       <ul>
-        <li><a href="#about-me">About Me</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#cool-stuff">Cool Stuff</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about-me" onclick="showSection('about-me')">About Me</a></li>
+        <li><a href="#projects" onclick="showSection('projects')">Projects</a></li>
+        <li><a href="#cool-stuff" onclick="showSection('cool-stuff')">Cool Stuff</a></li>
+        <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
       </ul>
     </nav>
   </header>
-  
-  <!-- Main Content -->
+
+  <!-- Main Content Container -->
   <main>
     <!-- About Me Section -->
     <section id="about-me">
       <h2>About Me</h2>
+      <!-- Replace with your actual photo -->
+      <img src="https://via.placeholder.com/250" alt="My Photo" />
       <p>
-        Hi! I'm [Your Name], a research scientist specializing in batteries,
-        energy storage technologies, and AI/ML applications. I love discovering
-        innovative ways to combine domain knowledge and machine learning to
-        solve real-world problems.
+        Hello! I'm [Your Name], a research scientist specializing in battery 
+        technology and AI/ML innovations. My passion lies in discovering 
+        cutting-edge solutions that bridge data science and real-world 
+        energy systems.
       </p>
     </section>
 
@@ -87,39 +108,43 @@
     <section id="projects">
       <h2>Projects</h2>
       <ul>
-        <li><strong>Battery Performance Prediction:</strong> A model that
-          forecasts battery life and efficiency using ML-driven techniques.</li>
-        <li><strong>Materials Discovery with AI:</strong> An exploration of
-          new materials for energy storage solutions using deep learning
-          and generative models.</li>
-        <li><strong>Open-Source Tools:</strong> A collection of scripts 
-          and libraries to streamline AI workflows for research purposes.</li>
+        <li><strong>Battery Performance Prediction:</strong> AI-driven models 
+          that forecast lifespan, efficiency, and failure modes of next-gen batteries.</li>
+        <li><strong>Materials Discovery with ML:</strong> Using advanced 
+          machine-learning techniques to identify novel compounds for 
+          sustainable energy storage.</li>
+        <li><strong>Automated Research Pipelines:</strong> Scripts and tools 
+          that streamline data collection, preprocessing, and analysis 
+          for AI-based experiments.</li>
       </ul>
     </section>
 
     <!-- Cool Stuff Section -->
     <section id="cool-stuff">
-      <h2>Cool Stuff in My Free Time</h2>
+      <h2>Cool Stuff</h2>
       <p>
-        When I'm not working, I enjoy tinkering with 3D printing projects,
-        hiking to capture nature photos, and exploring new AI/robotics 
-        hobby projects. Sometimes, I blog about the intersection of 
-        technology and daily life!
+        Outside of research, I love:
       </p>
+      <ul>
+        <li><strong>3D Printing:</strong> Designing fun, functional parts 
+          and exploring new materials.</li>
+        <li><strong>Nature Photography:</strong> Capturing scenic views 
+          during hikes and outdoor adventures.</li>
+        <li><strong>Robotics Projects:</strong> Experimenting with 
+          hobbyist robots and AI integrations at home.</li>
+      </ul>
     </section>
 
     <!-- Contact Section -->
     <section id="contact">
       <h2>Contact</h2>
       <p>
-        Interested in collaborating or just saying hello?  
-        Shoot me an email at 
-        <a href="mailto:yourname@example.com">yourname@example.com</a>  
-        or reach out via <a href="https://www.linkedin.com/in/yourprofile">
-        LinkedIn</a>.
+        Let’s talk about collaborating or just chat about cool tech!<br />
+        Email me at <a href="mailto:yourname@example.com">yourname@example.com</a><br />
+        or connect with me on 
+        <a href="https://www.linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>.
       </p>
-      <!-- Alternatively, you could embed a contact form if you have a backend 
-           or third-party form service to handle submissions. -->
+      <!-- If you have a backend or third-party form service, you can embed a form here. -->
     </section>
   </main>
 
@@ -128,5 +153,18 @@
     <p>&copy; 2025 Your Name</p>
   </footer>
 
+  <!-- Simple JavaScript to toggle sections -->
+  <script>
+    function showSection(sectionId) {
+      // Hide all sections
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        section.style.display = 'none';
+      });
+
+      // Show the targeted section
+      document.getElementById(sectionId).style.display = 'block';
+    }
+  </script>
 </body>
 </html>
