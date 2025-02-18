@@ -17,7 +17,8 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       height: 100%;
       overflow-x: hidden; /* matches canvas background */
-      color: #c9d1d9;      /* text color */
+      color: #c9d1d9; /* text color */
+ /* fallback background behind canvas, if any */
     }
 
     /* The canvas behind everything */
@@ -28,7 +29,7 @@
       width: 100vw;
       height: 100vh;
       z-index: -1;
-      background: #0d1117;
+      background: #242433;
     }
 
     /* Navigation Bar */
@@ -37,7 +38,7 @@
       width: 100%;
       top: 0;
       left: 0;
-      background: #161b22;
+      background: #242433;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -91,9 +92,11 @@
       padding: 6rem 2rem 4rem 2rem;
       max-width: 1000px;
       margin: 0 auto;
-      /* opacity: 0; Removing opacity just for figuring the sections out*/
-      transform: translateY(30px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      /* For reveal-on-scroll, re-add your:
+         opacity: 0;
+         transform: translateY(30px);
+         transition: ...
+      */
     }
     .section.visible {
       opacity: 1;
@@ -135,9 +138,13 @@
   </nav>
 
   <section class="hero" id="home">
-    <h1>Hi, I'm Simran!</h1>
-    <div class="typing"></div>
+      <h1>
+        Hi, I'm Simran!
+      </h1>
+        <span class="typing"></span>
+
   </section>
+
 
   <!-- ===== ABOUT SECTION ===== -->
   <section class="section" id="about-me">
@@ -230,20 +237,7 @@
       loop: true
     });
 
-    // Reveal on scroll
-    const sections = document.querySelectorAll('.section');
-    function revealOnScroll() {
-      const windowHeight = window.innerHeight;
-      const revealPoint = 100;
-      sections.forEach((section) => {
-        const sectionTop = section.getBoundingClientRect().top;
-        if(sectionTop < windowHeight - revealPoint) {
-          section.classList.add('visible');
-        }
-      });
-    }
-    window.addEventListener('scroll', revealOnScroll);
-    window.addEventListener('load', revealOnScroll);
+    // If you re-add reveal on scroll, you'd do so here...
   </script>
 
   <!-- =========== PARTICLE NETWORK + MOUSE LINES =========== -->
@@ -254,21 +248,67 @@
     let particlesArray = [];
     let electronsArray = [];
 
+    // Utility: random color generator (hex)
+    function randomColor() {
+      return '#' + Math.floor(Math.random() * 16777215).toString(16);
+    }
+    function randomSilverColor() {
+      // Let's pick a value between 204 (0xCC) and 255 (0xFF)
+      const min = 0xCC;           // 204 decimal
+      const max = 0xFF;           // 255 decimal
+      const range = max - min + 1; // typically 52
+      // Generate a random integer in [min..max]
+      const val = min + Math.floor(Math.random() * range);
+
+      // Convert to two-digit hex, e.g., 'cc' up to 'ff'
+      const hexPart = val.toString(16).padStart(2, '0');
+
+      // Return a grayscale color, e.g. #cccccc to #ffffff
+      return `#${hexPart}${hexPart}${hexPart}`;
+    }
+
     // Track mouse for interaction
     let mouse = { x: null, y: null };
 
+    // Map the mouse position to the canvas coordinate system
+    function getMousePos(e) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      };
+    }
+
     // Reposition mouse
-    window.addEventListener('mousemove', e => {
-      mouse.x = e.x;
-      mouse.y = e.y;
+    window.addEventListener('mousemove', (e) => {
+      const { x, y } = getMousePos(e);
+      mouse.x = x;
+      mouse.y = y;
     });
 
-    // On click, add an orbiting electron
-    window.addEventListener('click', e => {
-      electronsArray.push(new Electron(e.x, e.y, 50 + Math.random() * 30));
+    // On click:
+    // 1) Spawn between 1–5 new particles, each with random color
+    // 2) Optionally spawn an orbiting Electron
+    window.addEventListener('click', (e) => {
+      const { x, y } = getMousePos(e);
+
+      // how many new particles? random from 1 to 5
+      const spawnCount = Math.floor(Math.random() * 5) + 1;
+
+      for (let i = 0; i < spawnCount; i++) {
+        // random speed
+        const speedX = (Math.random() - 0.5) * 1;
+        const speedY = (Math.random() - 0.5) * 1;
+        const size = Math.random() * 4 + 2;
+        const color = randomColor(); // random color for each new particle
+        particlesArray.push(new Particle(x, y, size, speedX, speedY, color));
+      }
+
+      // Also spawn an orbiting electron if you like
+      electronsArray.push(new Electron(x, y, 50 + Math.random() * 30));
     });
 
-    // Resize canvas
+    // Resize the canvas
     window.addEventListener('resize', () => {
       canvas.width = innerWidth;
       canvas.height = innerHeight;
@@ -277,22 +317,23 @@
 
     // ===== PARTICLE CLASS =====
     class Particle {
-      constructor(x, y, size, speedX, speedY) {
+      constructor(x, y, size, speedX, speedY, color) {
         this.x = x;
         this.y = y;
         this.size = size;
         this.speedX = speedX;
         this.speedY = speedY;
+        this.color = color;  // store color
       }
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
         // bounce off edges
-        if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
       }
       draw() {
-        ctx.fillStyle = '#e57d2b'; // orange
+        ctx.fillStyle = this.color; // use the particle's color
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
         ctx.fill();
@@ -325,19 +366,21 @@
     function initParticles() {
       particlesArray = [];
       let numberOfParticles = 100;
-      for(let i=0; i<numberOfParticles; i++){
-        let x = Math.random() * canvas.width;
-        let y = Math.random() * canvas.height;
-        let size = Math.random() * 4 + 2; // 2 ~ 6
-        let speedX = (Math.random() - 0.5) * 1;
-        let speedY = (Math.random() - 0.5) * 1;
-        particlesArray.push(new Particle(x, y, size, speedX, speedY));
+      for (let i=0; i<numberOfParticles; i++){
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const size = Math.random() * 4 + 2; // 2 ~ 6
+        const speedX = (Math.random() - 0.5) * 1;
+        const speedY = (Math.random() - 0.5) * 1;
+        const color = randomSilverColor(); // assign a random color for each particle
+
+        particlesArray.push(new Particle(x, y, size, speedX, speedY, color));
       }
     }
 
     // ===== CONNECT PARTICLES (PARTICLE <-> PARTICLE) =====
     function connectParticles() {
-      let maxDist = 150; // distance threshold
+      const maxDist = 150; // distance threshold
       for (let a = 0; a < particlesArray.length; a++) {
         for (let b = a+1; b < particlesArray.length; b++) {
           let dx = particlesArray[b].x - particlesArray[a].x;
@@ -346,7 +389,7 @@
 
           if(dist < maxDist) {
             // closer => more opaque / thicker line
-            let alpha = 1 - dist / maxDist; // from 1 down to 0
+            let alpha = 1 - dist / maxDist;
             ctx.strokeStyle = `rgba(255,165,0, ${alpha})`; // orange color
             ctx.lineWidth = alpha * 2;
             ctx.beginPath();
@@ -360,16 +403,14 @@
 
     // ===== CONNECT PARTICLE TO MOUSE LINES (OPTIONAL) =====
     function connectToMouse(p) {
-      let maxMouseDist = 150;
+      let maxMouseDist = 300;
       let dx = p.x - mouse.x;
       let dy = p.y - mouse.y;
       let dist = Math.sqrt(dx*dx + dy*dy);
       if(dist < maxMouseDist) {
-        // closer => more opaque / thicker line
         let alpha = 1 - dist / maxMouseDist;
-        // color a bit different from particle-particle lines, if you prefer:
-        ctx.strokeStyle = `rgba(185,91,63, ${alpha})`; // a darker orange
-        ctx.lineWidth = alpha * 2;
+        ctx.strokeStyle = `rgba(185,91,63, ${alpha})`;
+        ctx.lineWidth = alpha * 3;
         ctx.beginPath();
         ctx.moveTo(p.x, p.y);
         ctx.lineTo(mouse.x, mouse.y);
@@ -395,11 +436,6 @@
         connectToMouse(p);
       });
 
-      // Update & draw orbiting electrons
-      electronsArray.forEach((e) => {
-        e.update();
-        e.draw();
-      });
 
       requestAnimationFrame(animate);
     }
