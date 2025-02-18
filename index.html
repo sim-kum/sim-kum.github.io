@@ -66,12 +66,12 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      /* Semi‐transparent background so canvas behind is visible */
-      background: linear-gradient(
-        120deg,
-        rgba(13, 17, 23, 0.8),
-        rgba(22, 27, 34, 0.8)
-      );
+      /* Remove or comment out the background property */
+      /* background: linear-gradient(
+          120deg,
+          rgba(13, 17, 23, 0.8),
+          rgba(22, 27, 34, 0.8)
+      ); */
       padding: 0 1em;
     }
     .hero h1 {
@@ -300,7 +300,7 @@
         if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
       }
       draw() {
-        ctx.fillStyle = '#ffffff'; // white for visibility
+        ctx.fillStyle = '#ffa500'; // or any valid hex or color name
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -331,7 +331,7 @@
 
     function initParticles() {
       particlesArray = [];
-      let numberOfParticles = 60; // Adjust as you like
+      let numberOfParticles = 100; // Adjust as you like
       for (let i = 0; i < numberOfParticles; i++) {
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
