@@ -16,7 +16,8 @@
       scroll-behavior: smooth;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       height: 100%;
-      overflow-x: hidden;
+      overflow-x: hidden; /* matches canvas background */
+      color: #c9d1d9;      /* text color */
     }
 
     /* The canvas behind everything */
@@ -27,7 +28,7 @@
       width: 100vw;
       height: 100vh;
       z-index: -1;
-      background: #0d1117; /* Matches page background */
+      background: #0d1117;
     }
 
     /* Navigation Bar */
@@ -66,12 +67,6 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      /* Remove or comment out the background property */
-      /* background: linear-gradient(
-          120deg,
-          rgba(13, 17, 23, 0.8),
-          rgba(22, 27, 34, 0.8)
-      ); */
       padding: 0 1em;
     }
     .hero h1 {
@@ -84,7 +79,7 @@
       color: #9e8b96;
       white-space: nowrap;
       display: inline-block;
-      min-height: 30px; /* Reserve space for typed text */
+      min-height: 30px;
     }
     .typed-cursor {
       display: inline-block;
@@ -96,7 +91,7 @@
       padding: 6rem 2rem 4rem 2rem;
       max-width: 1000px;
       margin: 0 auto;
-      opacity: 0;             /* Start hidden for reveal effect */
+      /* opacity: 0; Removing opacity just for figuring the sections out*/
       transform: translateY(30px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
@@ -127,10 +122,8 @@
 </head>
 <body>
 
-  <!-- Our new background canvas -->
   <canvas id="atomCanvas"></canvas>
 
-  <!-- Navigation -->
   <nav>
     <ul>
       <li><a href="#home">Home</a></li>
@@ -141,13 +134,12 @@
     </ul>
   </nav>
 
-  <!-- Hero Section -->
   <section class="hero" id="home">
     <h1>Hi, I'm Simran!</h1>
     <div class="typing"></div>
   </section>
 
-  <!-- About Me -->
+  <!-- ===== ABOUT SECTION ===== -->
   <section class="section" id="about-me">
     <h2>About Me</h2>
     <p>
@@ -169,7 +161,7 @@
     </p>
   </section>
 
-  <!-- Projects -->
+  <!-- ===== PROJECTS SECTION ===== -->
   <section class="section" id="projects">
     <h2>Projects</h2>
     <ul>
@@ -186,7 +178,7 @@
     </p>
   </section>
 
-  <!-- Cool Stuff -->
+  <!-- ===== COOL STUFF SECTION ===== -->
   <section class="section" id="cool-stuff">
     <h2>Cool Stuff</h2>
     <p>
@@ -202,7 +194,7 @@
     </ul>
   </section>
 
-  <!-- Contact -->
+  <!-- ===== CONTACT SECTION ===== -->
   <section class="section" id="contact">
     <h2>Contact</h2>
     <p>
@@ -217,12 +209,11 @@
     </p>
   </section>
 
-  <!-- Footer -->
   <footer>
     <p>&copy; 2025 Simran Kumari. Built with passion &amp; caffeine.</p>
   </footer>
 
-  <!-- Typed.js for the hero text animation -->
+  <!-- ================== TYPED.JS ================== -->
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
   <script>
     // Initialize typed text in the hero
@@ -255,35 +246,36 @@
     window.addEventListener('load', revealOnScroll);
   </script>
 
-  <!-- Atom-like canvas animation script -->
+  <!-- =========== PARTICLE NETWORK + MOUSE LINES =========== -->
   <script>
-    // Reference our canvas
     const canvas = document.getElementById('atomCanvas');
     const ctx = canvas.getContext('2d');
 
     let particlesArray = [];
     let electronsArray = [];
+
+    // Track mouse for interaction
     let mouse = { x: null, y: null };
 
-    // Update mouse coords
-    window.addEventListener('mousemove', (e) => {
+    // Reposition mouse
+    window.addEventListener('mousemove', e => {
       mouse.x = e.x;
       mouse.y = e.y;
     });
 
-    // On click, add an electron orbiting the click position
-    window.addEventListener('click', (e) => {
+    // On click, add an orbiting electron
+    window.addEventListener('click', e => {
       electronsArray.push(new Electron(e.x, e.y, 50 + Math.random() * 30));
     });
 
-    // Resize the canvas with the window
+    // Resize canvas
     window.addEventListener('resize', () => {
       canvas.width = innerWidth;
       canvas.height = innerHeight;
       initParticles();
     });
 
-    // Particle constructor (background charges)
+    // ===== PARTICLE CLASS =====
     class Particle {
       constructor(x, y, size, speedX, speedY) {
         this.x = x;
@@ -295,19 +287,19 @@
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
-        // Bounce off edges
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        // bounce off edges
+        if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
       }
       draw() {
-        ctx.fillStyle = '#ffa500'; // or any valid hex or color name
+        ctx.fillStyle = '#e57d2b'; // orange
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
         ctx.fill();
       }
     }
 
-    // Electron constructor (orbit around an origin)
+    // ===== ELECTRON CLASS =====
     class Electron {
       constructor(ox, oy, radius) {
         this.ox = ox;
@@ -322,37 +314,88 @@
       draw() {
         const ex = this.ox + this.radius * Math.cos(this.angle);
         const ey = this.oy + this.radius * Math.sin(this.angle);
-        ctx.fillStyle = '#ffd700'; // gold color
+        ctx.fillStyle = '#ffd700'; // gold
         ctx.beginPath();
-        ctx.arc(ex, ey, 5, 0, Math.PI * 2);
+        ctx.arc(ex, ey, 5, 0, Math.PI*2);
         ctx.fill();
       }
     }
 
+    // ===== INIT PARTICLES =====
     function initParticles() {
       particlesArray = [];
-      let numberOfParticles = 100; // Adjust as you like
-      for (let i = 0; i < numberOfParticles; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const size = Math.random() * 4 + 2; // bigger for easier visibility
-        const speedX = (Math.random() - 0.5) * 1;
-        const speedY = (Math.random() - 0.5) * 1;
+      let numberOfParticles = 100;
+      for(let i=0; i<numberOfParticles; i++){
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        let size = Math.random() * 4 + 2; // 2 ~ 6
+        let speedX = (Math.random() - 0.5) * 1;
+        let speedY = (Math.random() - 0.5) * 1;
         particlesArray.push(new Particle(x, y, size, speedX, speedY));
       }
     }
 
+    // ===== CONNECT PARTICLES (PARTICLE <-> PARTICLE) =====
+    function connectParticles() {
+      let maxDist = 150; // distance threshold
+      for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a+1; b < particlesArray.length; b++) {
+          let dx = particlesArray[b].x - particlesArray[a].x;
+          let dy = particlesArray[b].y - particlesArray[a].y;
+          let dist = Math.sqrt(dx*dx + dy*dy);
+
+          if(dist < maxDist) {
+            // closer => more opaque / thicker line
+            let alpha = 1 - dist / maxDist; // from 1 down to 0
+            ctx.strokeStyle = `rgba(255,165,0, ${alpha})`; // orange color
+            ctx.lineWidth = alpha * 2;
+            ctx.beginPath();
+            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    // ===== CONNECT PARTICLE TO MOUSE LINES (OPTIONAL) =====
+    function connectToMouse(p) {
+      let maxMouseDist = 150;
+      let dx = p.x - mouse.x;
+      let dy = p.y - mouse.y;
+      let dist = Math.sqrt(dx*dx + dy*dy);
+      if(dist < maxMouseDist) {
+        // closer => more opaque / thicker line
+        let alpha = 1 - dist / maxMouseDist;
+        // color a bit different from particle-particle lines, if you prefer:
+        ctx.strokeStyle = `rgba(185,91,63, ${alpha})`; // a darker orange
+        ctx.lineWidth = alpha * 2;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.stroke();
+      }
+    }
+
+    // ===== ANIMATE =====
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw & update background particles
+      // Update & draw each particle
       particlesArray.forEach((p) => {
         p.update();
         p.draw();
-        drawConnectionLine(p);
       });
 
-      // Draw & update orbiting electrons
+      // Connect lines among particles
+      connectParticles();
+
+      // Connect lines from mouse to each particle
+      particlesArray.forEach((p) => {
+        connectToMouse(p);
+      });
+
+      // Update & draw orbiting electrons
       electronsArray.forEach((e) => {
         e.update();
         e.draw();
@@ -361,23 +404,7 @@
       requestAnimationFrame(animate);
     }
 
-    // If a particle is close to mouse, draw a line from it to the mouse
-    function drawConnectionLine(particle) {
-      const distX = particle.x - mouse.x;
-      const distY = particle.y - mouse.y;
-      const distance = Math.sqrt(distX * distX + distY * distY);
-      const maxDistance = 150;
-      if (distance < maxDistance) {
-        ctx.strokeStyle = '#b95b3f'; // green line
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(particle.x, particle.y);
-        ctx.lineTo(mouse.x, mouse.y);
-        ctx.stroke();
-      }
-    }
-
-    // On page load, fit canvas & begin animation
+    // On page load, size canvas & start
     window.addEventListener('load', () => {
       canvas.width = innerWidth;
       canvas.height = innerHeight;
