@@ -268,8 +268,8 @@
       const { x, y } = getMousePos(e);
       const spawnCount = Math.floor(Math.random() * 5) + 1; // 1–5 new particles
       for (let i = 0; i < spawnCount; i++) {
-        const speedX = (Math.random() - 0.5) * 2; // faster speed
-        const speedY = (Math.random() - 0.5) * 2;
+        const speedX = (Math.random() - 0.5) * 1.2; // faster speed
+        const speedY = (Math.random() - 0.5) * 1.2;
         const size = Math.random() * 4 + 2;
         const color = '#' + Math.floor(Math.random() * 16777215).toString(16);
         particlesArray.push(new Particle(x, y, size, speedX, speedY, color));
@@ -336,7 +336,7 @@
       const area = canvas.width * canvas.height;
       // We generate ~1 particle per 12000 px^2
       // Adjust as needed for density
-      const densityFactor = 6000;
+      const densityFactor = 12000;
       let numberOfParticles = Math.floor(area / densityFactor);
 
       // enforce a minimum
