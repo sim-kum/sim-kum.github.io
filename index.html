@@ -201,13 +201,18 @@
       color: #8b949e;
     }
     .cv-link {
-    color: #b9d6ed; /* Or another suitable color */
+    color: rgba(197, 212, 230, 0.85); /* Or another suitable color */
     font-size: 0.9rem;
     text-decoration: none;
-    display: inline-block; /* Make it a block-level element */
+    display: flex; /* Make it a block-level element */
+    align-items: center;
     margin-top: 0.5rem; /* Add some space between name and link */
   }
-
+  .download-icon {
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
+    margin-left: 5px; /* Add spacing between text and icon */
+  }
   .cv-link:hover {
     text-decoration: underline;
   }
@@ -219,7 +224,10 @@
     <div class="nav-name">
       Simran Kumari, PhD
       <br>
-      <a href="./Simran_Kumari_CV_24.pdf" class="cv-link" download>My CV: A curated collection of my greatest hits. (Download now)</a>
+      <a href="Simran_Kumari_CV_24.pdf" class="cv-link" download>
+        Unlock my professional saga (PDF edition)
+        <img src="./download-icon.webp" alt="Download CV" class="download-icon">
+      </a>
     </div>
     <ul>
       <li><a href="#home">Home</a></li>
