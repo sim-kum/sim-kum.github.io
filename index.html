@@ -15,40 +15,104 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #c9d1d9;
       overflow-x: hidden;
-      /*
-         Base background image for ALL pages:
-         You can use background-size: cover or any positioning you like.
-      */
-      background: url("DALL·E 2025-02-18 19.06.39 - A sophisticated and modern background representing advanced material technologies with integrated machine learning and AI components. The design remai.webp") no-repeat center center / cover;
+      background: url("DALL·E 2025-02-18 19.13.18 - A sleek and modern visualization of graphene material with a uniform hexagonal atomic structure covering the entire image. The design is minimalistic .webp")
+      no-repeat center center / cover;
     }
-
-    /* Navigation Bar (fixed across all pages) */
+    h2 {
+      border-bottom: 2px solid #c1cede;
+      padding-bottom: 0.5em;
+    }
+    nav li a:hover {
+      cursor: pointer;
+    }
+    .section {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    body:not(#home) .section {
+      min-height: auto;
+      padding: 8rem 3rem;
+      max-width: 800px;
+      margin-bottom: 6rem;
+      border-radius: 1rem;
+      background: rgba(45, 45, 60, 0.8);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+    /* NAVIGATION BAR */
     nav {
       position: fixed;
       width: 100%;
-      top: 0; left: 0;
-      background: #242433;
-      display: flex; align-items: center; justify-content: center;
+      top: 0;
+      left: 0;
+      background: rgba(36, 36, 51, 0);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 1em 0;
-      z-index: 999;
-    }
-    nav ul {
-      list-style: none; display: flex; gap: 2rem;
-    }
-    nav a {
-      text-decoration: none; color: #c9d1d9; font-weight: 600;
-      transition: color 0.2s ease-in-out;
-    }
-    nav a:hover {
-      color: #58a6ff;
+      z-index: 4000;
+      opacity: 1;
+      transition: transform 0.4s ease-in-out;
     }
 
-    /* HOME SECTION
-       We'll place the semi‐transparent overlay + canvas only here!
-    */
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      margin-right: 1rem;
+    }
+
+    nav li a {
+      position: relative;
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 600;
+      padding: 0.7rem 1.5rem;
+      border-radius: 0.5rem;
+      background: rgba(45, 45, 60, 0.8);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease-in-out;
+    }
+
+    nav li a:hover {
+    background: rgba(100, 100, 120, 0.9); /* Lighter hover background */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6), 0 0 10px rgba(88, 166, 255, 0.4); /* Enhanced hover shadow + glow */
+    transform: translateY(-3px);
+  }
+
+    nav a::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      background: rgba(88, 166, 255, 0.3);
+      border-radius: 1rem;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.3s ease-in-out;
+      z-index: -1;
+    }
+
+    nav a:hover::before {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .nav-content {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: space-between;
+  }
+
+  .nav-name {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding-left: 1rem; /* Add some left padding */
+  }
+
+    /* HERO SECTION */
     .hero {
       position: relative;
-      /* full viewport height so it looks like a distinct page */
       height: 100vh;
       display: flex;
       flex-direction: column;
@@ -56,58 +120,65 @@
       justify-content: center;
       text-align: center;
       padding: 0 1em;
-      /* overflow hidden so the canvas can be positioned absolutely */
       overflow: hidden;
     }
 
-    /* Semi‐transparent overlay behind the content but above the background image */
     .hero::before {
       content: "";
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.6); /* e.g., 40% black */
+      background: rgba(0, 0, 0, 0.6);
       z-index: 1;
     }
 
-    /* The canvas for particles, only in the .hero (home) */
     .hero canvas {
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      z-index: 2; /* on top of overlay, behind text */
+      z-index: 2;
     }
 
-    /* The typed text + heading content -> z-index: 3 so it sits above the canvas */
     .hero-content {
-          position: relative;
-          z-index: 3;
-        }
-    .hero-content {
-      position: relative; /* so we can layer above the hero background */
-      z-index: 3;        /* ensure it sits above the canvas/overlay */
+      position: relative;
+      z-index: 3;
       text-align: center;
     }
 
-    /* The semi‐transparent, rounded container behind your text */
     .hero-content-bg {
-      display: inline-block;          /* shrink-wrap to content width */
-      background: rgba(0, 0, 0, 0.6); /* black at 40% opacity (adjust color/opacity) */
-      border-radius: 2rem;           /* rounded corners, e.g. 16px or 1rem */
-      padding: 3rem 3.5rem;          /* enough spacing around text */
-      margin: 0 auto;                /* center horizontally if you like */
+      display: inline-block;
+      background: linear-gradient(145deg, rgba(0, 0, 0, 0.75), rgba(40, 40, 40, 0.9));
+      border-radius: 2rem;
+      padding: 3rem 3.5rem;
+      margin: 0 auto;
+      box-shadow:
+        8px 8px 15px rgba(0, 0, 0, 0.6),
+        inset 3px 3px 6px rgba(255, 255, 255, 0.1),
+        0 0 10px rgba(237, 208, 170, 0.2),
+        inset -3px -3px 6px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(121, 118, 118, 0.15);
+      transition: all 0.3s ease-in-out;
     }
 
-    /* The text inside remains visible & easy to read */
+    .hero-content-bg:hover {
+      box-shadow:
+        10px 10px 20px rgba(0, 0, 0, 0.7),
+        inset 4px 4px 8px rgba(255, 255, 255, 0.15),
+        inset -4px -4px 8px rgba(0, 0, 0, 0.85);
+      transform: translateY(-3px);
+    }
+
     .hero-content-bg h1,
     .hero-content-bg .typing {
-      color: #ffffff; /* or your desired text color */
-      margin: 0;      /* remove default margin so spacing is consistent */
+      color: #ffffff;
+      margin: 0;
     }
+
     .hero-content h1 {
       font-size: 3rem;
       margin-bottom: 0.5em;
       color: #58a6ff;
     }
+
     .typing {
       font-size: 1.2rem;
       color: #9e8b96;
@@ -115,11 +186,7 @@
       display: inline-block;
       min-height: 30px;
     }
-    .typed-cursor {
-      display: inline-block;
-    }
 
-    /* General section styling for other pages */
     .section {
       min-height: 100vh;
       padding: 6rem 2rem 4rem 2rem;
@@ -127,18 +194,33 @@
       margin: 0 auto;
     }
 
-    /* Footer */
     footer {
       background: #161b22;
       padding: 2rem;
       text-align: center;
       color: #8b949e;
     }
+    .cv-link {
+    color: #b9d6ed; /* Or another suitable color */
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-block; /* Make it a block-level element */
+    margin-top: 0.5rem; /* Add some space between name and link */
+  }
+
+  .cv-link:hover {
+    text-decoration: underline;
+  }
   </style>
 </head>
-<body>
 
-  <nav>
+<body>
+  <nav id="navBar">
+    <div class="nav-name">
+      Simran Kumari, PhD
+      <br>
+      <a href="/Users/simrankumari/PycharmProjects/sim-kum.github.io/Simran_Kumari_CV_24.pdf" class="cv-link" download>Click here to download my CV</a>
+    </div>
     <ul>
       <li><a href="#home">Home</a></li>
       <li><a href="#about-me">About Me</a></li>
@@ -148,12 +230,21 @@
     </ul>
   </nav>
 
-  <!-- HOME / HERO SECTION -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const navBar = document.getElementById('navBar');
+      const navBarHeight = navBar.offsetHeight;
+
+      const sections = document.querySelectorAll('body:not(#home) .section');
+      sections.forEach(section => {
+        section.style.marginTop = `${navBarHeight + 20}px`;
+      });
+    });
+  </script>
+
   <section class="hero" id="home">
     <canvas id="atomCanvas"></canvas>
-
     <div class="hero-content">
-      <!-- New container just for the translucent background -->
       <div class="hero-content-bg">
         <h1>Hi, I'm Simran!</h1>
         <div class="typing"></div>
@@ -161,39 +252,29 @@
     </div>
   </section>
 
-  <!-- ABOUT SECTION -->
   <section class="section" id="about-me">
     <h2>About Me</h2>
-    <p>
-      I'm a research scientist passionate about battery technology and AI/ML...
-    </p>
-    <!-- ... etc ... -->
+    <p>I'm a research scientist passionate about battery technology and AI/ML...</p>
   </section>
 
-  <!-- PROJECTS SECTION -->
   <section class="section" id="projects">
     <h2>Projects</h2>
-    <!-- etc. -->
   </section>
 
-  <!-- COOL STUFF SECTION -->
   <section class="section" id="cool-stuff">
     <h2>Cool Stuff</h2>
-    <!-- etc. -->
   </section>
 
-  <!-- CONTACT SECTION -->
   <section class="section" id="contact">
     <h2>Contact</h2>
-    <!-- etc. -->
   </section>
 
   <footer>
     <p>&copy; 2025 Simran Kumari. Built with passion &amp; caffeine.</p>
   </footer>
 
-  <!-- TYPED.JS -->
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+
   <script>
     new Typed('.typing', {
       strings: [

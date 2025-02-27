@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Research & AI/ML Projects</title>
+
+  <style>
+    /* Reset & global styling */
+    * {
+      box-sizing: border-box; margin: 0; padding: 0;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #c9d1d9;
+      overflow-x: hidden;
+      background: url("background.jpg") no-repeat center center / cover; /* Your local image */
+    }
+
+    /* NAVIGATION BAR - Initially hidden */
+    nav {
+      position: fixed;
+      width: 100%;
+      top: 0; left: 0;
+      background: #242433;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1em 0;
+      z-index: 999;
+
+      opacity: 0;   /* Initially hidden */
+      transform: translateY(-100%);
+      transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    }
+    nav.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    nav ul {
+      list-style: none; display: flex; gap: 2rem;
+    }
+    nav a {
+      text-decoration: none; color: #c9d1d9; font-weight: 600;
+      transition: color 0.2s ease-in-out;
+    }
+    nav a:hover {
+      color: #58a6ff;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Semi-transparent overlay */
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+
+    /* Particles Canvas */
+    #atomCanvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 2;
+    }
+
+    /* HERO CONTENT */
+    .hero-content {
+      position: relative;
+      z-index: 3;
+    }
+    .hero-content-bg {
+      display: inline-block;
+      background: linear-gradient(145deg, rgba(0, 0, 0, 0.75), rgba(40, 40, 40, 0.9));
+      border-radius: 2rem;
+      padding: 3rem 3.5rem;
+      box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.6),
+                  inset 3px 3px 6px rgba(255, 255, 255, 0.1),
+                  inset -3px -3px 6px rgba(0, 0, 0, 0.8);
+    }
+    .hero-content-bg:hover {
+      transform: translateY(-3px);
+    }
+    .hero-content h1 {
+      font-size: 3rem;
+      color: #58a6ff;
+    }
+    .typing {
+      font-size: 1.2rem;
+      color: #9e8b96;
+      white-space: nowrap;
+      display: inline-block;
+    }
+
+    /* SECTIONS */
+    .section {
+      min-height: 100vh;
+      padding: 6rem 2rem 4rem 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #161b22;
+      padding: 2rem;
+      text-align: center;
+      color: #8b949e;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about-me">About Me</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#cool-stuff">Cool Stuff</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="home">
+    <canvas id="atomCanvas"></canvas>
+    <div class="hero-content">
+      <div class="hero-content-bg">
+        <h1>Hi, I'm Simran!</h1>
+        <div class="typing"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about-me"><h2>About Me</h2></section>
+  <section class="section" id="projects"><h2>Projects</h2></section>
+  <section class="section" id="cool-stuff"><h2>Cool Stuff</h2></section>
+  <section class="section" id="contact"><h2>Contact</h2></section>
+
+  <footer>
+    <p>&copy; 2025 Simran Kumari. Built with passion & caffeine.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+  <script>
+    new Typed('.typing', {
+      strings: ["I'm a battery researcher.", "I use AI and ML in my projects.", "I love energy solutions & tech.", "Welcome to my world!"],
+      typeSpeed: 60, backSpeed: 40, backDelay: 2000, loop: true
+    });
+
+    // NAVIGATION BAR SHOWS ON SCROLL
+    document.addEventListener("DOMContentLoaded", function () {
+      const nav = document.querySelector("nav");
+      const heroSection = document.querySelector(".hero");
+
+      function toggleNavBar() {
+        const heroBottom = heroSection.getBoundingClientRect().bottom;
+        if (heroBottom <= 0) {
+          nav.classList.add("visible");
+        } else {
+          nav.classList.remove("visible");
+        }
+      }
+
+      window.addEventListener("scroll", toggleNavBar);
+    });
+
+    // PARTICLES
+    const canvas = document.getElementById('atomCanvas');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+
+    function initParticles() {
+      particlesArray = [];
+      const densityFactor = 8000;
+      let numberOfParticles = Math.floor((canvas.width * canvas.height) / densityFactor);
+      if (numberOfParticles < 80) numberOfParticles = 80;
+
+      for (let i = 0; i < numberOfParticles; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const size = Math.random() * 5 + 2;
+        const speedX = (Math.random() - 0.5) * 1.8;
+        const speedY = (Math.random() - 0.5) * 1.8;
+        const color = `rgba(200, 200, 200, ${Math.random()})`;
+        particlesArray.push({ x, y, size, speedX, speedY, color });
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+        if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('load', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+      animate();
+    });
+  </script>
+</body>
+</html>
