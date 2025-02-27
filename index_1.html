@@ -8,7 +8,9 @@
   <style>
     /* Reset & global styling */
     * {
-      box-sizing: border-box; margin: 0; padding: 0;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
     html, body {
       height: 100%;
@@ -18,16 +20,16 @@
       background: url("DALL·E 2025-02-18 19.13.18 - A sleek and modern visualization of graphene material with a uniform hexagonal atomic structure covering the entire image. The design is minimalistic .webp")
       no-repeat center center / cover;
     }
+
     h2 {
       border-bottom: 2px solid #c1cede;
       padding-bottom: 0.5em;
     }
-    nav li a:hover {
-      cursor: pointer;
-    }
+
     .section {
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
+
     body:not(#home) .section {
       min-height: auto;
       padding: 8rem 3rem;
@@ -37,6 +39,7 @@
       background: rgba(45, 45, 60, 0.8);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     }
+
     /* NAVIGATION BAR */
     nav {
       position: fixed;
@@ -61,6 +64,47 @@
       margin-right: 1rem;
     }
 
+    /* 🔹 Glow effect when hovering over name and CV */
+    .nav-name {
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 1rem;
+      display: inline-block;
+      border-radius: 0.5rem;
+      transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .nav-name:hover {
+      background: rgba(45, 45, 60, 0.9);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5),
+                  0 0 12px rgba(88, 166, 255, 0.5);
+    }
+
+    /* 🔹 CV Link styling */
+    .cv-link {
+      color: rgba(197, 212, 230, 0.85);
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    /* 🔹 Icon next to CV */
+    .download-icon {
+      width: 20px;
+      height: 20px;
+      margin-left: 5px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    /* 🔹 Slight bounce effect on hover */
+    .nav-name:hover .download-icon {
+      transform: scale(1.1);
+    }
+
+    /* 🔹 Glow effect for navigation items */
     nav li a {
       position: relative;
       text-decoration: none;
@@ -74,152 +118,25 @@
     }
 
     nav li a:hover {
-    background: rgba(100, 100, 120, 0.9); /* Lighter hover background */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6), 0 0 10px rgba(88, 166, 255, 0.4); /* Enhanced hover shadow + glow */
-    transform: translateY(-3px);
-  }
-
-    nav a::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: 100%;
-      background: rgba(88, 166, 255, 0.3);
-      border-radius: 1rem;
-      transform: translate(-50%, -50%) scale(0);
-      transition: transform 0.3s ease-in-out;
-      z-index: -1;
-    }
-
-    nav a:hover::before {
-      transform: translate(-50%, -50%) scale(1);
-    }
-    .nav-content {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      justify-content: space-between;
-  }
-
-  .nav-name {
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 1.2rem;
-    padding-left: 1rem; /* Add some left padding */
-  }
-
-    /* HERO SECTION */
-    .hero {
-      position: relative;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 0 1em;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 1;
-    }
-
-    .hero canvas {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 2;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 3;
-      text-align: center;
-    }
-
-    .hero-content-bg {
-      display: inline-block;
-      background: linear-gradient(145deg, rgba(0, 0, 0, 0.75), rgba(40, 40, 40, 0.9));
-      border-radius: 2rem;
-      padding: 3rem 3.5rem;
-      margin: 0 auto;
-      box-shadow:
-        8px 8px 15px rgba(0, 0, 0, 0.6),
-        inset 3px 3px 6px rgba(255, 255, 255, 0.1),
-        0 0 10px rgba(237, 208, 170, 0.2),
-        inset -3px -3px 6px rgba(0, 0, 0, 0.8);
-      border: 1px solid rgba(121, 118, 118, 0.15);
-      transition: all 0.3s ease-in-out;
-    }
-
-    .hero-content-bg:hover {
-      box-shadow:
-        10px 10px 20px rgba(0, 0, 0, 0.7),
-        inset 4px 4px 8px rgba(255, 255, 255, 0.15),
-        inset -4px -4px 8px rgba(0, 0, 0, 0.85);
+      background: rgba(100, 100, 120, 0.9);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6),
+                  0 0 10px rgba(88, 166, 255, 0.4);
       transform: translateY(-3px);
     }
 
-    .hero-content-bg h1,
-    .hero-content-bg .typing {
-      color: #ffffff;
-      margin: 0;
-    }
-
-    .hero-content h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5em;
-      color: #58a6ff;
-    }
-
-    .typing {
-      font-size: 1.2rem;
-      color: #9e8b96;
-      white-space: nowrap;
-      display: inline-block;
-      min-height: 30px;
-    }
-
-    .section {
-      min-height: 100vh;
-      padding: 6rem 2rem 4rem 2rem;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    footer {
-      background: #161b22;
-      padding: 2rem;
-      text-align: center;
-      color: #8b949e;
-    }
-    .cv-link {
-    color: #b9d6ed; /* Or another suitable color */
-    font-size: 0.9rem;
-    text-decoration: none;
-    display: inline-block; /* Make it a block-level element */
-    margin-top: 0.5rem; /* Add some space between name and link */
-  }
-
-  .cv-link:hover {
-    text-decoration: underline;
-  }
   </style>
 </head>
 
 <body>
+
   <nav id="navBar">
     <div class="nav-name">
       Simran Kumari, PhD
       <br>
-      <a href="/Users/simrankumari/PycharmProjects/sim-kum.github.io/Simran_Kumari_CV_24.pdf" class="cv-link" download>Click here to download my CV</a>
+      <a href="Simran_Kumari_CV_24.pdf" class="cv-link" download>
+        Unlock my professional saga (PDF edition)
+        <img src="./download-icon.webp" alt="Download CV" class="download-icon">
+      </a>
     </div>
     <ul>
       <li><a href="#home">Home</a></li>
@@ -230,20 +147,10 @@
     </ul>
   </nav>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const navBar = document.getElementById('navBar');
-      const navBarHeight = navBar.offsetHeight;
-
-      const sections = document.querySelectorAll('body:not(#home) .section');
-      sections.forEach(section => {
-        section.style.marginTop = `${navBarHeight + 20}px`;
-      });
-    });
-  </script>
-
+  <!-- HOME / HERO SECTION -->
   <section class="hero" id="home">
     <canvas id="atomCanvas"></canvas>
+
     <div class="hero-content">
       <div class="hero-content-bg">
         <h1>Hi, I'm Simran!</h1>
@@ -252,19 +159,23 @@
     </div>
   </section>
 
+  <!-- ABOUT SECTION -->
   <section class="section" id="about-me">
     <h2>About Me</h2>
     <p>I'm a research scientist passionate about battery technology and AI/ML...</p>
   </section>
 
+  <!-- PROJECTS SECTION -->
   <section class="section" id="projects">
     <h2>Projects</h2>
   </section>
 
+  <!-- COOL STUFF SECTION -->
   <section class="section" id="cool-stuff">
     <h2>Cool Stuff</h2>
   </section>
 
+  <!-- CONTACT SECTION -->
   <section class="section" id="contact">
     <h2>Contact</h2>
   </section>
@@ -273,8 +184,8 @@
     <p>&copy; 2025 Simran Kumari. Built with passion &amp; caffeine.</p>
   </footer>
 
+  <!-- TYPED.JS -->
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-
   <script>
     new Typed('.typing', {
       strings: [
