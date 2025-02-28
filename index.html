@@ -226,6 +226,59 @@
   .cv-link:hover {
     text-decoration: underline;
   }
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    /* Navigation Bar */
+    nav {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0.5em 1em;
+    }
+
+    /* Keep nav ul as a row, not a column */
+    nav ul {
+      flex-direction: row; /* Change to row */
+      align-items: center; /* keep items aligned */
+      margin-right: 0;
+      margin-top: 0.5em;
+      padding-left: 0;
+      flex-wrap: wrap; /* allow wrapping on smaller screens */
+    }
+
+    /* Adjust font sizes */
+    .nav-name {
+      font-size: 1rem;
+      padding: 0;
+    }
+
+    nav li a {
+      padding: 0.5rem 1rem;
+    }
+
+    .cv-link {
+        font-size: 0.8rem;
+    }
+
+    /* Sections */
+    body:not(#home) .section {
+      padding: 4rem 1.5rem;
+      max-width: 100%;
+      margin-bottom: 3rem;
+    }
+
+    /* Hero Section */
+    .hero-content-bg {
+      padding: 2rem;
+    }
+
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+
+    .typing {
+      font-size: 1rem;
+    }
+  }
   </style>
 </head>
 
