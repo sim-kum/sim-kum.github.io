@@ -25,27 +25,40 @@
 
     .section {
       padding: 6rem 2rem 4rem;
+      scroll-margin-top: 7rem;
       max-width: 1000px;
-      margin: 0 auto 6rem;
+      margin: 6rem auto; /* Ensures space from top */
       border-radius: 1rem;
       background: rgba(45, 45, 60, 0.8);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     }
-
+    #about-me {
+      padding-top: 8rem; /* Creates space below navbar */
+    }
+    /* Navbar initially hidden */
     nav {
       position: fixed;
       width: 100%;
       top: 0;
       left: 0;
-      background: rgba(36, 36, 51, 0);
+      background: rgba(36, 36, 51, 0.8);
       backdrop-filter: blur(10px);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 1em 0;
       z-index: 4000;
+      transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+      opacity: 0; /* Start hidden */
+      transform: translateY(-20px);
+      pointer-events: none; /* Disable interactions */
+    }
+
+    /* Navbar visible when scrolled */
+    nav.visible {
       opacity: 1;
-      transition: transform 0.4s ease-in-out;
+      transform: translateY(0);
+      pointer-events: all;
     }
 
     nav ul {
@@ -263,22 +276,49 @@
     /* Mobile Styles */
       /* Mobile Styles */
   @media (max-width: 768px) {
-    /* Navigation Bar */
-    nav {
-      flex-direction: column;
-      width: 95%; /* Increase width for small screens */
-      align-items: flex-start;
-      padding: 0.5em 1em;
-    }
+        /* Navigation Bar */
+        nav {
+        flex-direction: row;
+        width: 100vw; /* Ensure it covers the full width */
+        align-items: center; /* Center everything */
+        padding: 0.8em 1em; /* Adjust spacing */
+        box-sizing: border-box;
+      }
 
-    nav ul {
-      flex-direction: row;
-      align-items: center;
-      margin-right: 0;
-      margin-top: 0.5em;
-      padding-left: 0;
-      flex-wrap: wrap;
-    }
+      nav ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap; /* Ensure items stay in a row */
+        gap: 0.5rem; /* Adjust spacing */
+        padding: 0;
+      }
+
+      nav li {
+        display: inline-block;
+      }
+
+      nav li a {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem; /* Reduce font size */
+        white-space: nowrap; /* Prevent line breaks */
+        background: rgba(45, 45, 60, 0.9); /* Keep styling */
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        text-align: center;
+      }
+
+      /* Optional: Reduce navbar padding on very small screens */
+      @media (max-width: 480px) {
+        nav ul {
+          gap: 0.3rem;
+        }
+        nav li a {
+          padding: 0.4rem 0.8rem;
+          font-size: 0.85rem;
+        }
+      }
 
       .nav-name {
         font-size: 1rem;
@@ -290,11 +330,6 @@
       .nav-name:hover {
         background: none;
         box-shadow: none;
-      }
-
-      nav li a {
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
       }
 
       .cv-link {
@@ -343,6 +378,53 @@
       }
     }
 
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px; /* Distance from bottom */
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column; /* Stack text & arrow */
+      align-items: center; /* Center everything */
+      justify-content: center;
+      color: #ffffff;
+      font-size: 1.2rem;
+      text-align: center;
+      opacity: 0.9;
+      cursor: pointer;
+      backdrop-filter: blur(5px); /* Adds subtle blur */
+      padding: 10px 15px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.3); /* Dark transparent background */
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Glow effect */
+      animation: bounce 1.5s infinite ease-in-out;
+      width: fit-content; /* Adjusts width automatically */
+      z-index: 1000;
+    }
+
+.scroll-indicator span {
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.scroll-indicator i {
+  font-size: 1.8rem;
+  color: #58a6ff;
+  text-shadow: 0 0 10px rgba(88, 166, 255, 0.7);
+  margin-top: 5px; /* Space between text and icon */
+}
+
+/* Bouncing Animation */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+
   </style>
 </head>
 
@@ -362,6 +444,10 @@
   </nav>
 
   <section class="hero" id="home">
+    <div class="scroll-indicator">
+      <span>Scroll Down</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
     <canvas id="atomCanvas"></canvas>
     <div class="hero-content">
       <div class="hero-content-bg">
@@ -403,6 +489,8 @@
     <h2>Contact</h2>
   </section>
 
+
+
   <footer>
     <p>&copy; 2025 Simran Kumari. Built with passion &amp; caffeine.</p>
   </footer>
@@ -423,7 +511,19 @@
     });
   </script>
 
+  <script>
+        document.addEventListener("DOMContentLoaded", function () {
+      const navbar = document.getElementById("navBar");
 
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > window.innerHeight * 0.2) {
+          navbar.classList.add("visible"); // Show navbar
+        } else {
+          navbar.classList.remove("visible"); // Hide navbar
+        }
+      });
+    });
+  </script>
   <!-- PARTICLES FOR HOME ONLY -->
   <script>
     const canvas = document.getElementById('atomCanvas');
@@ -622,9 +722,27 @@
 
   </script>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const scrollIndicator = document.querySelector(".scroll-indicator");
+        const aboutSection = document.querySelector("#about-me");
+
+        if (!scrollIndicator) {
+            console.error("Error: .scroll-indicator element not found!");
+            return;
+        }
+        if (!aboutSection) {
+            console.error("Error: #about-me section not found!");
+            return;
+        }
+
+        scrollIndicator.addEventListener("click", function () {
+            aboutSection.scrollIntoView({ behavior: "smooth" });
+        });
+    });
+</script>
 
 
-</body>
 
    <!-- Parallax Hero Effect -->
   <script>
@@ -661,4 +779,6 @@
 
 
   </script>
+
+</body>
 </html>
