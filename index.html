@@ -1,42 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Research & AI/ML Projects</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <title>Simran Kumari, PhD</title>
   <style>
-    /* Reset & global styling */
     * {
-      box-sizing: border-box; margin: 0; padding: 0;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    html, body {
-      height: 100%;
+
+    body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #c9d1d9;
-      overflow-x: hidden;
-      background: url("DALL·E 2025-02-18 19.13.18 - A sleek and modern visualization of graphene material with a uniform hexagonal atomic structure covering the entire image. The design is minimalistic .webp")
-      no-repeat center center / cover;
+      background: url("DALL·E 2025-02-18 19.13.18 - A sleek and modern visualization of graphene material with a uniform hexagonal atomic structure covering the entire image. The design is minimalistic .webp") no-repeat center center / cover;
     }
-        h2 {
+
+    h2 {
       border-bottom: 2px solid #c1cede;
       padding-bottom: 0.5em;
     }
 
     .section {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    body:not(#home) .section {
-      min-height: auto;
-      padding: 8rem 3rem;
-      max-width: 800px;
-      margin-bottom: 6rem;
+      padding: 6rem 2rem 4rem;
+      max-width: 1000px;
+      margin: 0 auto 6rem;
       border-radius: 1rem;
       background: rgba(45, 45, 60, 0.8);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     }
-    /* NAVIGATION BAR */
-    /* NAVIGATION BAR */
+
     nav {
       position: fixed;
       width: 100%;
@@ -57,15 +52,13 @@
       list-style: none;
       display: flex;
       gap: 1rem;
-      margin-right: 1rem;
     }
 
-    /* 🔹 Glow effect when hovering over name and CV */
     .nav-name {
       color: #ffffff;
       font-weight: bold;
       font-size: 1.2rem;
-      padding: 1rem;
+      padding: 0.5rem 1rem; /* Reduced padding */
       display: inline-block;
       border-radius: 0.5rem;
       transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -77,7 +70,6 @@
                   0 0 12px rgba(88, 166, 255, 0.5);
     }
 
-    /* 🔹 CV Link styling */
     .cv-link {
       color: rgba(197, 212, 230, 0.85);
       font-size: 0.9rem;
@@ -87,7 +79,6 @@
       margin-top: 0.5rem;
     }
 
-    /* 🔹 Icon next to CV */
     .download-icon {
       width: 20px;
       height: 20px;
@@ -95,14 +86,11 @@
       transition: transform 0.3s ease-in-out;
     }
 
-    /* 🔹 Slight bounce effect on hover */
     .nav-name:hover .download-icon {
       transform: scale(1.1);
     }
 
-    /* 🔹 Glow effect for navigation items */
     nav li a {
-      position: relative;
       text-decoration: none;
       color: #ffffff;
       font-weight: 600;
@@ -120,7 +108,6 @@
       transform: translateY(-3px);
     }
 
-    /* HERO SECTION */
     .hero {
       position: relative;
       height: 100vh;
@@ -129,29 +116,34 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 0 1em;
       overflow: hidden;
     }
 
     .hero::before {
       content: "";
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(0, 0, 0, 0.6);
       z-index: 1;
     }
 
     .hero canvas {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       z-index: 2;
     }
 
     .hero-content {
       position: relative;
       z-index: 3;
-      text-align: center;
+      transform-style: preserve-3d;
+      transition: transform 0.2s ease-out;
     }
 
     .hero-content-bg {
@@ -159,7 +151,6 @@
       background: linear-gradient(145deg, rgba(0, 0, 0, 0.75), rgba(40, 40, 40, 0.9));
       border-radius: 2rem;
       padding: 3rem 3.5rem;
-      margin: 0 auto;
       box-shadow:
         8px 8px 15px rgba(0, 0, 0, 0.6),
         inset 3px 3px 6px rgba(255, 255, 255, 0.1),
@@ -192,16 +183,74 @@
     .typing {
       font-size: 1.2rem;
       color: #9e8b96;
-      white-space: nowrap;
       display: inline-block;
-      min-height: 30px;
     }
 
-    .section {
-      min-height: 100vh;
-      padding: 6rem 2rem 4rem 2rem;
-      max-width: 1000px;
-      margin: 0 auto;
+    /* Magnetic Buttons */
+    .magnetic {
+      display: inline-block;
+      padding: 3px 3px;
+      background: rgba(88, 166, 255, 0.03);
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 2px;
+      transition: transform 0.2s ease-out;
+      text-decoration: none;
+    }
+
+    .magnetic:hover {
+      transform: scale(1.05);
+    }
+
+
+         /* Social Icons - Align them properly */
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-top: 1.5rem;
+    }
+
+    /* Make all icons uniform in size */
+    .social-icons a {
+      font-size: 2rem; /* Default icon size */
+      color: #58a6ff;
+      display: flex;
+      text-decoration: none;
+      align-items: start;
+      justify-content: space-evenly;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+    }
+
+    .social-icons a:hover {
+      color: #ffcc00;
+      transform: scale(1.2);
+    }
+
+    .social-icons .cv-link {
+      font-size: 1.8rem;  /* Slightly smaller than the other icons */
+      color: #559ff4;     /* Red color for PDF icon */
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .social-icons .cv-link:hover {
+       color: #ffcc00;
+      transform: scale(1.2); /* Slight zoom effect on hover */
+    }
+
+        /* Profile Picture Styling */
+    .profile-pic {
+      width: 170px; /* Adjust size */
+      height: 170px;
+      border-radius: 50%; /* Makes it a circle */
+      object-fit: cover; /* Ensures the image fits inside */
+      border: 3px solid #a6b5c7; /* Blue border around the image */
+      display: block;
+      margin: 0 auto 15px; /* Centers the image & adds space below */
     }
 
     footer {
@@ -210,23 +259,9 @@
       text-align: center;
       color: #8b949e;
     }
-    .cv-link {
-    color: rgba(197, 212, 230, 0.85); /* Or another suitable color */
-    font-size: 0.9rem;
-    text-decoration: none;
-    display: flex; /* Make it a block-level element */
-    align-items: center;
-    margin-top: 0.5rem; /* Add some space between name and link */
-  }
-  .download-icon {
-    width: 20px; /* Adjust size as needed */
-    height: 20px; /* Adjust size as needed */
-    margin-left: 5px; /* Add spacing between text and icon */
-  }
-  .cv-link:hover {
-    text-decoration: underline;
-  }
+
     /* Mobile Styles */
+      /* Mobile Styles */
   @media (max-width: 768px) {
     /* Navigation Bar */
     nav {
@@ -245,88 +280,80 @@
       flex-wrap: wrap;
     }
 
-    /* Adjust font sizes */
-    .nav-name {
-      font-size: 1rem; /* Base font size for smaller screens */
-      padding: 0;
+      .nav-name {
+        font-size: 1rem;
+        padding: 0;
+        background: none;
+        box-shadow: none;
+      }
+
+      .nav-name:hover {
+        background: none;
+        box-shadow: none;
+      }
+
+      nav li a {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+      }
+
+      .cv-link {
+        font-size: 0.8rem;
+      }
+
+      .section {
+        padding: 4rem 1.5rem;
+        max-width: 100%;
+        margin-bottom: 3rem;
+      }
+
+      .hero-content-bg {
+        padding: 2rem;
+      }
+
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+
+      .typing {
+        font-size: 1rem;
+      }
     }
 
-    nav li a {
-      font-size: 0.9rem; /* Reduced font size for nav links */
-      padding: 0.5rem 1rem;
+    @media (max-width: 480px) {
+      .nav-name {
+        font-size: 0.9rem;
+      }
+
+      nav li a {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      .cv-link {
+        font-size: 0.7rem;
+      }
+
+      .hero-content h1 {
+        font-size: 1.8rem;
+      }
+
+      .typing {
+        font-size: 0.9rem;
+      }
     }
 
-    .cv-link {
-        font-size: 0.8rem; /* reduced cv link font size */
-    }
-
-    /* Sections */
-    body:not(#home) .section {
-      padding: 4rem 1.5rem;
-      max-width: 100%;
-      margin-bottom: 3rem;
-    }
-
-    /* Hero Section */
-    .hero-content-bg {
-      padding: 2rem;
-    }
-
-    .hero-content h1 {
-      font-size: 2rem;
-    }
-
-    .typing {
-      font-size: 1rem;
-    }
-  }
-
-  /* Even Smaller Screens (e.g., 320px - 480px) */
-  @media (max-width: 480px) {
-    .nav-name {
-      font-size: 0.9rem; /* Further reduce font size */
-    }
-
-    nav li a {
-      font-size: 0.8rem; /* Further reduce font size */
-      padding: 0.4rem 0.8rem; /* Further reduce padding */
-    }
-
-    .cv-link{
-        font-size: 0.7rem; /* further reduce cv link font size */
-    }
-
-    .hero-content h1 {
-      font-size: 1.8rem; /* Further reduce font size */
-    }
-
-    .typing {
-      font-size: 0.9rem; /* Further reduce font size */
-    }
-  }
-    /* Even Smaller Screens (e.g., 320px - 480px) */
-  @media (max-width: 480px) {
-    /* ... (Your existing media query styles) ... */
-    nav li a {
-      font-size: 0.8rem;
-      padding: 0.4rem 0.8rem; /* Further reduce padding */
-    }
-  }
   </style>
 </head>
 
 <body>
+
   <nav id="navBar">
-    <div class="nav-name">
+    <a href="#home" class="nav-name , magnetic">  <div class="nav-name">
       Simran Kumari, PhD
-      <br>
-      <a href="Simran_Kumari_CV_24.pdf" class="cv-link" download>
-        Unlock my professional saga (PDF edition)
-        <img src="./download-icon.webp" alt="Download CV" class="download-icon">
-      </a>
     </div>
+      </a>
     <ul>
-      <li><a href="#home">Home</a></li>
       <li><a href="#about-me">About Me</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#cool-stuff">Cool Stuff</a></li>
@@ -334,24 +361,27 @@
     </ul>
   </nav>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const navBar = document.getElementById('navBar');
-      const navBarHeight = navBar.offsetHeight;
-
-      const sections = document.querySelectorAll('body:not(#home) .section');
-      sections.forEach(section => {
-        section.style.marginTop = `${navBarHeight + 20}px`;
-      });
-    });
-  </script>
-
   <section class="hero" id="home">
     <canvas id="atomCanvas"></canvas>
     <div class="hero-content">
       <div class="hero-content-bg">
+        <img src="./Screenshot%202025-02-17%20at%2010.11.21%20AM.png" alt="Simran Kumari" class="profile-pic magnetic">
         <h1>Hi, I'm Simran!</h1>
         <div class="typing"></div>
+        <div class="social-icons">
+          <a href="https://scholar.google.com/citations?user=KE4gYaIAAAAJ&hl=en&authuser=1" target="_blank ">
+            <i class="fas fa-graduation-cap"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/simran-kumari-9895939a/" target="_blank">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/sim-kum" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="Simran_Kumari_CV_24.pdf" class="cv-link" download>
+            <i class="fas fa-file-pdf"></i>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -359,7 +389,7 @@
   <section class="section" id="about-me">
     <h2>About Me</h2>
     <p>I'm a research scientist passionate about battery technology and AI/ML...</p>
-  </section>
+    </section>
 
   <section class="section" id="projects">
     <h2>Projects</h2>
@@ -378,21 +408,21 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-
   <script>
     new Typed('.typing', {
       strings: [
-        "I'm a battery researcher.",
-        "I use AI and ML in my projects.",
-        "I love energy solutions & tech.",
-        "Welcome to my world!"
+        "I'm a scientist passionate about clean energy technology.",
+        "I work on batteries and catalysts for a sustainable future.",
+        "I use ML, AI, chemistry, and materials science to innovate.",
+        "Let's push the boundaries of energy research together!"
       ],
-      typeSpeed: 60,
-      backSpeed: 40,
+      typeSpeed: 50,
+      backSpeed: 30,
       backDelay: 2000,
       loop: true
     });
   </script>
+
 
   <!-- PARTICLES FOR HOME ONLY -->
   <script>
@@ -591,5 +621,44 @@
     });
 
   </script>
+
+
+
 </body>
+
+   <!-- Parallax Hero Effect -->
+  <script>
+      document.addEventListener("mousemove", (e) => {
+        const xAxis = (window.innerWidth / 2 - e.clientX) / 50;
+        const yAxis = (window.innerHeight / 2 - e.clientY) / 50;
+        document.querySelector(".hero-content").style.transform =
+          `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+      });
+    </script>
+<!-- Magnetic Buttons Effect -->
+  <script>
+        document.addEventListener("DOMContentLoaded", function () {
+      const magneticButtons = document.querySelectorAll(".magnetic");
+
+      if (magneticButtons.length === 0) {
+        console.warn("No elements with class '.magnetic' found!");
+        return;
+      }
+
+      magneticButtons.forEach((button) => {
+        button.addEventListener("mousemove", (e) => {
+          const { offsetX, offsetY, target } = e;
+          const xMove = (offsetX - target.clientWidth / 2) * 0.2;
+          const yMove = (offsetY - target.clientHeight / 2) * 0.2;
+          target.style.transform = `translate(${xMove}px, ${yMove}px) scale(1.05)`;
+        });
+
+        button.addEventListener("mouseleave", (e) => {
+          e.target.style.transform = `translate(0px, 0px) scale(1)`;
+        });
+      });
+    });
+
+
+  </script>
 </html>
