@@ -3,24 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Simran Kumari, PhD - Research Scientist in Clean Energy, Battery Technology, and AI/ML. Explore my projects, publications, and innovations.">
-  <meta name="keywords" content="Simran Kumari, Research Scientist, Battery Technology, AI in Materials Science, Energy Storage, Clean Energy, Machine Learning, Catalysts">
-  <meta name="author" content="Simran Kumari">
-  <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Simran Kumari, PhD | Research Scientist">
-  <meta property="og:description" content="Researching Battery Technology, AI/ML, and Clean Energy. Explore my work and connect with me.">
-  <meta property="og:image" content="https://yourwebsite.com/profile-image.jpg">
-  <meta property="og:url" content="https://yourwebsite.com">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="google-site-verification" content="tzsYTXpFbqwW2RwzpRL-xHZA7FY2apip7cbu5oMFQXw" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <title>Simran Kumari, PhD - Scientist</title>
-
-
+  <title>Simran Kumari</title>
   <style>
     * {
       box-sizing: border-box;
@@ -119,6 +103,47 @@
       align-items: center;
       margin-top: 0.5rem;
     }
+
+      /* remove once the website is ready */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: none; /* 🔹 Hide the overlay by default */
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+
+
+    .modal {
+      background: #1f1f1f;
+      color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 400px;
+      box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+    }
+
+    button#closeModal {
+      background: #ff9800;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 15px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button#closeModal:hover {
+      background: #e68900;
+    }
+    /* remove once the website is ready */
 
     .download-icon {
       width: 20px;
@@ -303,7 +328,7 @@
 
     /* Mobile Styles */
       /* Mobile Styles */
-  @media (max-width: 768px) {
+      @media (max-width: 768px) {
         /* Navigation Bar */
         nav {
         flex-direction: row;
@@ -337,6 +362,8 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
         text-align: center;
       }
+
+
 
       /* Optional: Reduce navbar padding on very small screens */
       @media (max-width: 480px) {
@@ -458,7 +485,29 @@
 </head>
 
 <body>
+
+  <div class="overlay">
+    <div class="modal">
+      <p>🚧 This website is currently a work in progress. Some features may not be fully functional.</p>
+      <button id="closeModal">Got it!</button>
+    </div>
+  </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Show the overlay when the page loads
+    document.querySelector(".overlay").style.display = "flex";
+
+    // Close the modal when button is clicked
+    document.getElementById("closeModal").addEventListener("click", function () {
+      document.querySelector(".overlay").style.display = "none";
+    });
+  });
+  </script>
+
+
   <div class="background-layer"></div>
+
   <nav id="navBar">
     <a href="#home" class="nav-name , magnetic">  <div class="nav-name">
       Simran Kumari
@@ -517,7 +566,6 @@
   <section class="section" id="contact">
     <h2>Contact</h2>
   </section>
-
 
 
   <footer>
@@ -612,7 +660,7 @@
       initParticles();
     });
 
-      // Magnetic force strength (adjust this value for stronger attraction)
+        // Magnetic force strength (adjust this value for stronger attraction)
     const magneticStrength = 0.00008;
 
     // Modify the Particle class
@@ -817,7 +865,7 @@
 
   </script>
 
- <script>
+  <script>
     document.addEventListener("mousemove", (e) => {
       window.requestAnimationFrame(() => {
         const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
@@ -828,5 +876,8 @@
     });
 
  </script>
+
+
+
 </body>
 </html>
